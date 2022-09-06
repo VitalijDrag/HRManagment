@@ -7,11 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import lt.CodeAcademy.model.Absense;
 import lt.CodeAcademy.model.Employee;
+import lt.CodeAcademy.model.Vacation;
 import lt.CodeAcademy.service.EmployeeService;
 
 @Controller
+@RequestMapping("/employees")
 public class EmployeeController {
 
 	@Autowired
@@ -20,31 +24,40 @@ public class EmployeeController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		model.addAttribute("listEmployees", employeeService.getAllEmployees());
-		return "index";
+		return "employees/all";
 	}
 
-	@GetMapping("/showNewEmployeeForm")
+	@GetMapping("/newEmployeeForm")
 	public String showNewEmployeeForm(Model model) {
-		Employee employee = new Employee();
-		model.addAttribute("employee", employee);
-		return "new_employee";
+		model.addAttribute("employee", new Employee());
+		return "employees/new_employee";
 	}
 
 	@PostMapping("/saveEmployee")
 	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
 		employeeService.saveEmployee(employee);
-		return "redirect:/";
+		return "redirect:/employees/";
 	}
 
 	@GetMapping("/showFormForUpdate/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 		Employee employee = employeeService.getEmployeeById(id);
 		model.addAttribute("employee", employee);
-		return "update_employee";
+		return "employees/update_employee";
 	}
 	@GetMapping("/deleteEmployee/{id}")
 	public String deleteEmployee(@PathVariable(value = "id") long id) {
 		this.employeeService.deleteEmployeeById(id);
-		return "redirect:/";
+		return "redirect:/employees/";
 	}
+	
+	 @GetMapping("/details/{id}")
+	    public String details(@PathVariable(value = "id") long id, Model model) {
+	        Employee employee = employeeService.getEmployeeById(id);
+
+	        model.addAttribute("employee", employee);
+	        model.addAttribute("vacation", new Vacation());
+	        model.addAttribute("absense", new Absense());
+	        return "employees/details";
+	    }
 }
