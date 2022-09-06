@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/main}"
+>
+  <body>
+    <div layout:fragment="content">
+      <div class="row d-flex">
+        <div class="col-sm-3 box">
+          <span th:text="${employees.size}"></span> Employees
+        </div>
+        <div class="col-sm-3 box">
+          <span th:text="${candidates.size}"></span> Candidates
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
