@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  lang="pt"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/main.html}"
+>
+  <body>
+    <div layout:fragment="content">
+      <h1>New candidate</h1>
+      <form
+        th:action="@{/candidates/save}"
+        th:object="${candidate}"
+        method="POST"
+      >
+        <div class="row g-3 mb-3">
+          <div class="col-sm-4">
+            <label class="form-label">Name</label>
+            <input
+              th:field="*{name}"
+              type="text"
+              class="form-control"
+              placeholder="Full name"
+              required
+            />
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">ID number</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="ID number"
+              th:field="*{id}"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-4">
+            <label class="form-label">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              th:field="*{address}"
+              placeholder="Address"
+              required
+            />
+          </div>
+
+          <div class="col-sm-2">
+            <label class="form-label">Birth date</label>
+            <input
+              class="form-control"
+              type="date"
+              th:field="*{birth}"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-4">
+            <label class="form-label">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="name@example.com"
+              th:field="*{email}"
+              required
+            />
+          </div>
+
+          <div class="col-sm-2">
+            <label class="form-label">Phone number</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Phone number"
+              th:field="*{phone}"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-4">
+            <label class="form-label">Position</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Position"
+              th:field="*{technicalArea}"
+              required
+            />
+          </div>
+          <div class="col-sm-2">
+            <label class="form-label">Rating (1-10)</label>
+            <input
+              type="number"
+              class="form-control"
+              th:field="*{rating}"
+              min="1"
+              max="10"
+              value="0"
+              required
+            />
+          </div>
+
+          <div class="col-sm-2">
+            <label class="form-label">Interview date</label>
+            <input
+              type="date"
+              class="form-control"
+              th:field="*{jobInterviewDate}"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-auto">
+            <button class="btn btn-primary" type="submit">
+              Save candidate
+            </button>
+          </div>
+          <div class="col-auto">
+            <a class="btn btn-danger" th:href="@{/candidates/all}">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

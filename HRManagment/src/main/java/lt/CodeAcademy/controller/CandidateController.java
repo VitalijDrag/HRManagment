@@ -30,7 +30,7 @@ public class CandidateController {
     @GetMapping("/new")
     public String showNewCandidateForm(Model model) {
         model.addAttribute("candidate", new Candidate());
-        return "candidates/new";
+        return "candidates/new_candidate";
     }
 
     @PostMapping("/save")
@@ -55,7 +55,7 @@ public class CandidateController {
         Candidate candidate = candidateService.getCandidateById(id);
 
         model.addAttribute("candidate", candidate);
-        return "candidates/edit";
+        return "candidates/update_candidate";
     }
 
     @GetMapping("/delete/{id}")
