@@ -1,31 +1,75 @@
 package lt.CodeAcademy.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Set;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.*;
 
-@Getter
-@Setter
+import org.hibernate.annotations.DynamicUpdate;
+
+import lombok.Data;
+
+@Data
 @Entity
-@Table(name = "employees")
+@DynamicUpdate
 public class Employee {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@Column(name = "first_name")
-	private String firstName;
-	
-	@Column(name = "last_name")
-	private String lastName;
-	
-	@Column(name = "email")
+
+	@Column
+	private String name;
+
+	@Column
+	private String idNumber;
+
+	@Column
+	private String address;
+
+	@Column
+	private String phone;
+
+	@Column
 	private String email;
+
+	@Column
+	private String birth;
+
+	@Column
+	private String contractStart;
+
+	@Column
+	private String contractEnd;
+
+	@Column
+	private String occupation;
+
+	@Column
+	private String password;
+
+	@Column
+	private Boolean isAdmin;
+
+	@Column
+	private String salary;
+
+	@Column
+	private String obs;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
+	private Set<Vacation> vacations;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
+	private Set<Absence> absenses;
+
+	public String getSalary() {
+		try {
+			return String.format("%,.2f", Double.valueOf(this.salary));
+		} catch (Exception e) {
+			return this.salary;
+		}
+	}
+
 }

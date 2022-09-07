@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import lt.CodeAcademy.model.Absense;
+import lt.CodeAcademy.model.Absence;
 import lt.CodeAcademy.model.Employee;
 import lt.CodeAcademy.model.Vacation;
 import lt.CodeAcademy.service.EmployeeService;
@@ -21,9 +21,9 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@GetMapping("/")
+	@GetMapping("/all")
 	public String viewHomePage(Model model) {
-		model.addAttribute("listEmployees", employeeService.getAllEmployees());
+		model.addAttribute("employees", employeeService.getAllEmployees());
 		return "employees/all";
 	}
 
@@ -33,10 +33,10 @@ public class EmployeeController {
 		return "employees/new_employee";
 	}
 
-	@PostMapping("/saveEmployee")
+	@PostMapping("/save")
 	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
 		employeeService.saveEmployee(employee);
-		return "redirect:/employees/";
+		return "redirect:/employees/all";
 	}
 
 	@GetMapping("/showFormForUpdate/{id}")
@@ -48,16 +48,15 @@ public class EmployeeController {
 	@GetMapping("/deleteEmployee/{id}")
 	public String deleteEmployee(@PathVariable(value = "id") long id) {
 		this.employeeService.deleteEmployeeById(id);
-		return "redirect:/employees/";
+		return "redirect:/employees/all";
 	}
 	
 	 @GetMapping("/details/{id}")
 	    public String details(@PathVariable(value = "id") long id, Model model) {
 	        Employee employee = employeeService.getEmployeeById(id);
-
 	        model.addAttribute("employee", employee);
 	        model.addAttribute("vacation", new Vacation());
-	        model.addAttribute("absense", new Absense());
+	        model.addAttribute("absense", new Absence());
 	        return "employees/details";
 	    }
 }
