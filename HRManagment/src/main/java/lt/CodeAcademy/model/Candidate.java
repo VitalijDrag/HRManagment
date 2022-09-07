@@ -19,7 +19,7 @@ public class Candidate {
     private String name;
 
     @Column
-    private String bi;
+    private String idNumber;
 
     @Column
     private String address;

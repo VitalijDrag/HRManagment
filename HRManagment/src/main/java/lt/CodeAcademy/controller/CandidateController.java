@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import lt.CodeAcademy.model.Absense;
+import lt.CodeAcademy.model.Absence;
 import lt.CodeAcademy.model.Candidate;
 import lt.CodeAcademy.model.Vacation;
 import lt.CodeAcademy.service.CandidateService;
@@ -35,7 +35,6 @@ public class CandidateController {
 
     @PostMapping("/save")
     public String saveCandidate(@ModelAttribute("candidate") Candidate candidate) {
-
         candidateService.saveCandidate(candidate);
         return "redirect:/candidates/all";
     }
@@ -43,24 +42,21 @@ public class CandidateController {
     @GetMapping("/details/{id}")
     public String details(@PathVariable(value = "id") long id, Model model) {
         Candidate candidate = candidateService.getCandidateById(id);
-
         model.addAttribute("candidate", candidate);
         model.addAttribute("vacation", new Vacation());
-        model.addAttribute("absense", new Absense());
+        model.addAttribute("absense", new Absence());
         return "candidates/details";
     }
 
     @GetMapping("/edit/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
         Candidate candidate = candidateService.getCandidateById(id);
-
         model.addAttribute("candidate", candidate);
         return "candidates/update_candidate";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteCandidate(@PathVariable(value = "id") long id) {
-
         this.candidateService.deleteCandidateById(id);
         return "redirect:/candidates/all";
     }
