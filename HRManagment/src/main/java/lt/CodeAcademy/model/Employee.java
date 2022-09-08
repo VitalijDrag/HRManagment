@@ -6,7 +6,9 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -62,7 +64,7 @@ public class Employee {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
-	private Set<Absence> absenses;
+	private Set<Absence> absences;
 
 	public String getSalary() {
 		try {

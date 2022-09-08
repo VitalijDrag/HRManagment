@@ -83,7 +83,7 @@
 						data-bs-toggle="collapse"
 						data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
 						aria-controls="panelsStayOpen-collapseOne">
-						Vacation (<span th:text="${employee.vacations.size}"></span>)
+						Vacation &nbsp;<span th:text="${employee.vacations.size}"></span> 
 					</button>
 				</h2>
 				<div id="panelsStayOpen-collapseOne"
@@ -110,7 +110,7 @@
 						data-bs-toggle="collapse"
 						data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
 						aria-controls="panelsStayOpen-collapseTwo">
-						Absence <span th:text="${employee.absences.size}"></span>
+						Absence &nbsp;<span th:text="${employee.absences.size}"></span>
 					</button>
 				</h2>
 				<div id="panelsStayOpen-collapseTwo"
@@ -177,8 +177,8 @@
 						th:object="${absence}" method="POST">
 						<div class="modal-body">
 							<div class="mb-3">
-								<label for="date" class="col-form-label">Date of absence</label> <input
-									class="form-control" type="date" th:field="*{date}" />
+								<label for="date" class="col-form-label">Date of absence</label>
+								<input class="form-control" type="date" th:field="*{date}" />
 							</div>
 						</div>
 						<div class="modal-footer">

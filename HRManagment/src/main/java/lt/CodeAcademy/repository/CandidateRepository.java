@@ -7,4 +7,5 @@ import lt.CodeAcademy.model.Candidate;
 
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
+	
 }

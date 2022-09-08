@@ -32,7 +32,7 @@ public class CandidateServiceImpl implements CandidateService {
         if (optional.isPresent()) {
             candidate = optional.get();
         } else {
-            throw new RuntimeException(" Candidate not found for id :: " + id);
+            throw new RuntimeException(" Candidate not found for id : " + id);
         }
         return candidate;
     }
