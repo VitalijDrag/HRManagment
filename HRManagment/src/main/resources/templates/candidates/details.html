@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/main.html}"
+>
+  <body>
+    <div layout:fragment="content">
+      <h1>Candidate details</h1>
+
+      <div class="row my-2">
+        <div class="col-auto">
+          <a
+          th:href="@{/candidates/edit/{id}(id=${candidate.id})}"
+          class="btn btn-primary btn-sm"
+          >Update data</a>
+        </div>
+        <div class="col-auto">
+          <a
+          th:href="@{/candidates/delete/{id}(id=${candidate.id})}"
+          class="btn btn-danger btn-sm"
+          >Delete employee</a>
+        </div>
+      </div>
+
+      <table class="table">
+        <tbody>
+          <tr th:each="candidate : ${candidates}">
+            <tr>
+              <th>Name</th>
+              <td class="fs-6" th:text="${candidate.name}"></td>
+            </tr>
+            <tr>
+              <th>ID number</th>
+              <td class="fs-6" th:text="${candidate.idNumber}"></td>
+            </tr>
+            <tr>
+              <th>Birth date</th>
+              <td class="fs-6" th:text="${candidate.birth}"></td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td class="fs-6" th:text="${candidate.address}"></td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td class="fs-6" th:text="${candidate.email}"></td>
+            </tr>
+            <tr>
+              <th>Phone number</th>
+              <td class="fs-6" th:text="${candidate.phone}"></td>
+            </tr>
+            <tr>
+              <th>Rating (1-10)</th>
+              <td class="fs-6" th:text="${candidate.rating}"></td>
+            </tr>
+            <tr>
+              <th>Position</th>
+              <td class="fs-6" th:text="${candidate.technicalArea}"></td>
+            </tr>
+            <tr>
+              <th>Interview date</th>
+              <td class="fs-6" th:text="${candidate.jobInterviewDate}"></td>
+            </tr>
+            <tr>
+              <th>Note</th>
+              <td class="fs-6" th:text="${candidate.obs}"></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

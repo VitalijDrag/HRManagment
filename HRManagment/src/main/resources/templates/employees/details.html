@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main.html}">
+<body>
+	<div layout:fragment="content">
+		<h1>Employee details</h1>
+
+		<div class="row my-2">
+			<div class="col-auto">
+				<a th:href="@{/employees/edit/{id}(id=${employee.id})}"
+					class="btn btn-primary btn-sm">Update data</a>
+			</div>
+			<div class="col-auto">
+				<button type="button" class="btn btn-primary btn-sm"
+					data-bs-toggle="modal" data-bs-target="#vacationModal">Take
+					a vacation</button>
+			</div>
+			<div class="col-auto">
+				<button type="button" class="btn btn-warning btn-sm"
+					data-bs-toggle="modal" data-bs-target="#absenceModal">Apply
+					absence</button>
+			</div>
+			<div class="col-auto">
+				<a th:href="@{/employees/delete/{id}(id=${employee.id})}"
+					class="btn btn-danger btn-sm">Delete employee</a>
+			</div>
+		</div>
+		<table class="table">
+			<tbody>
+				<tr th:each="employee : ${employees}">
+				<tr>
+					<th>Name</th>
+					<td class="fs-6" th:text="${employee.name}"></td>
+				</tr>
+				<tr>
+					<th>Position</th>
+					<td class="fs-6" th:text="${employee.occupation}"></td>
+				</tr>
+				<tr>
+					<th>Salary</th>
+					<td class="fs-6" th:text="${employee.salary}"></td>
+				</tr>
+				<tr>
+					<th>Start of contract</th>
+					<td class="fs-6" th:text="${employee.contractStart}"></td>
+				</tr>
+				<tr>
+					<th>End of contract</th>
+					<td class="fs-6" th:text="${employee.contractEnd}"></td>
+				</tr>
+				<tr>
+					<th>ID number</th>
+					<td class="fs-6" th:text="${employee.idNumber}"></td>
+				</tr>
+				<tr>
+					<th>Birth day</th>
+					<td class="fs-6" th:text="${employee.birth}"></td>
+				</tr>
+				<tr>
+					<th>Address</th>
+					<td class="fs-6" th:text="${employee.address}"></td>
+				</tr>
+				<tr>
+					<th>Email</th>
+					<td class="fs-6" th:text="${employee.email}"></td>
+				</tr>
+				<tr>
+					<th>Phone number</th>
+					<td class="fs-6" th:text="${employee.phone}"></td>
+				</tr>
+				<tr>
+					<th>Note</th>
+					<td class="fs-6" th:text="${employee.obs}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="accordion" id="accordion-details">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="panelsStayOpen-headingOne">
+					<button class="accordion-button" type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+						aria-controls="panelsStayOpen-collapseOne">
+						Vacation &nbsp;<span th:text="${employee.vacations.size}"></span> 
+					</button>
+				</h2>
+				<div id="panelsStayOpen-collapseOne"
+					class="accordion-collapse collapse show"
+					aria-labelledby="panelsStayOpen-headingOne">
+					<div class="accordion-body">
+						<table class="table">
+							<th>Start</th>
+							<th>End</th>
+							<tbody>
+								<tr th:each="vacation : ${employee.vacations}">
+									<td th:text="${vacation.start}"></td>
+									<td th:text="${vacation.end}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header text-bold"
+					id="panelsStayOpen-headingTwo">
+					<button class="accordion-button" type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+						aria-controls="panelsStayOpen-collapseTwo">
+						Absence &nbsp;<span th:text="${employee.absences.size}"></span>
+					</button>
+				</h2>
+				<div id="panelsStayOpen-collapseTwo"
+					class="accordion-collapse collapse show"
+					aria-labelledby="panelsStayOpen-headingTwo">
+					<div class="accordion-body">
+						<table class="table">
+							<tbody>
+								<tr th:each="absence : ${employee.absences}">
+									<th>Day</th>
+									<td th:text="${absence.date}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="vacationModal" tabindex="-1"
+			aria-labelledby="vacationModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="vacationModal">Give the employee
+							a vacation</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<form
+						th:action="@{/vacations/save/{employee_id}(employee_id=${employee.id})}"
+						th:object="${vacation}" method="POST">
+						<div class="modal-body">
+							<div class="mb-3">
+								<label for="date" class="col-form-label">Vacation start
+									date</label> <input class="form-control" type="date"
+									th:field="*{start}" />
+							</div>
+							<div class="mb-3">
+								<label for="date" class="col-form-label">Vacation end
+									date</label> <input class="form-control" type="date" th:field="*{end}" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">OK</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="absenceModal" tabindex="-1"
+			aria-labelledby="absenceModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="absenceModal">Apply absence to
+							employee</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<form
+						th:action="@{/absences/save/{employee_id}(employee_id=${employee.id})}"
+						th:object="${absence}" method="POST">
+						<div class="modal-body">
+							<div class="mb-3">
+								<label for="date" class="col-form-label">Date of absence</label>
+								<input class="form-control" type="date" th:field="*{date}" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">OK</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

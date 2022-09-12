@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/main.html}"
+>
+  <body>
+    <div layout:fragment="content">
+      <h1>New employee</h1>
+      <form
+        th:action="@{/employees/save}"
+        th:object="${employee}"
+        method="POST"
+      >
+        <div class="row g-3 mb-3">
+          <div class="col-sm-4">
+            <label class="form-label">Name</label>
+            <input
+              th:field="*{name}"
+              type="text"
+              class="form-control"
+              placeholder="Full name"
+              required
+            />
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">ID number</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="ID number"
+              th:field="*{idNumber}"
+              required
+            />
+          </div>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-sm-4">
+            <label class="form-label">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              th:field="*{address}"
+              placeholder="Address"
+              required
+            />
+          </div>
+          <div class="col-sm-2">
+            <label class="form-label">Birth date</label>
+            <input
+              class="form-control"
+              type="date"
+              th:field="*{birth}"
+              required
+            />
+          </div>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-sm-4">
+            <label class="form-label">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="name@example.com"
+              th:field="*{email}"
+              required
+            />
+          </div>
+          <div class="col-sm-2">
+            <label class="form-label">Phone number</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Phone number"
+              th:field="*{phone}"
+            />
+          </div>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-sm-3">
+            <label class="form-label">Position</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Position in company"
+              th:field="*{occupation}"
+              required
+            />
+          </div>
+          <div class="col-sm-3">
+            <label class="form-label">Salary</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Salary"
+              th:field="*{salary}"
+              required
+            />
+          </div>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-sm-2">
+            <label class="form-label">Start of contract</label>
+            <input
+              class="form-control"
+              type="date"
+              th:field="*{contractStart}"
+              required
+            />
+          </div>
+          <div class="col-sm-2">
+            <label class="form-label">End of contract</label>
+            <input class="form-control" type="date" th:field="*{contractEnd}" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Note</label>
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="6"
+              th:field="*{obs}"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-auto">
+            <button class="btn btn-primary" type="submit">
+             Save employee
+            </button>
+          </div>
+          <div class="col-auto">
+            <a class="btn btn-danger" th:href="@{/employees/all}">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
